@@ -43,10 +43,17 @@
     .game-layout{position:relative;width:min(100vw,calc(100vh * 1.40625));aspect-ratio:1440/1024;}
     .game-box{position:absolute;left:23.3%;top:11.5%;width:53.5%;height:68.5%;border-radius:clamp(32px,4vw,58px);background:var(--purple-light);box-shadow:0 14px 0 #b856e1}
     .game-name{position:absolute;left:16.4%;top:0;width:67.2%;height:19%;display:grid;place-items:center;background:var(--purple-light);border-radius:30px 30px 0 0;font:400 clamp(24px,5vw,64px)/1 "Tilt Warp",system-ui,sans-serif;white-space:nowrap}
-    .game-reels{position:absolute;left:5.2%;right:5.2%;top:18.8%;bottom:6.3%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:5px;padding:5px;overflow:hidden;border-radius:30px;background:#eec7fc}
-    .game-cell{display:grid;place-items:center;min-width:0;min-height:0;background:#fff;font-size:clamp(42px,7.8vw,112px);user-select:none}
-    .game-reels.spinning .game-cell{animation:fruit-hop .12s ease-in-out infinite alternate}
-    @keyframes fruit-hop{from{transform:translateY(-12%);filter:blur(1px)}to{transform:translateY(12%);filter:blur(1px)}}
+    .game-reels{position:absolute;left:5.2%;right:5.2%;top:18.8%;bottom:6.3%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:0;padding:0;overflow:hidden;border-radius:30px;background:#fff}
+    .game-cell{display:grid;place-items:center;min-width:0;min-height:0;background:#fff;font-size:clamp(42px,7.8vw,112px);user-select:none;overflow:hidden;border-right:3px solid #eec7fc;border-bottom:3px solid #eec7fc}
+    .game-cell:nth-child(3n){border-right:0}.game-cell:nth-last-child(-n+3){border-bottom:0}
+    .fruit-symbol{display:inline-block;will-change:transform,filter}
+    .game-cell{position:relative}
+    .game-reels.spinning .game-cell::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.7),transparent 27%,transparent 73%,rgba(255,255,255,.65));opacity:.75}
+    .game-reels.spinning .fruit-symbol{animation:reel-symbol .12s linear infinite;filter:blur(1.5px);}
+    .game-reels.spinning .game-cell:nth-child(3n+2) .fruit-symbol{animation-duration:.105s;animation-delay:-.04s}
+    .game-reels.spinning .game-cell:nth-child(3n) .fruit-symbol{animation-duration:.09s;animation-delay:-.07s}
+    @keyframes reel-symbol{0%{transform:translateY(-9%) scaleY(1.08)}50%{transform:translateY(0) scaleY(1)}100%{transform:translateY(9%) scaleY(1.08)}}
+    @media(prefers-reduced-motion:reduce){.game-reels.spinning .fruit-symbol{animation-duration:.35s;filter:blur(.5px)}}
     .game-balance{position:absolute;right:3.8%;top:6.5%;width:26.5%;min-height:7%;display:grid;place-items:center;background:var(--purple-light);border-radius:18px;font:400 clamp(18px,3vw,38px)/1 "Tilt Warp",system-ui,sans-serif}
     .spin-count{position:absolute;left:6.8%;top:42.4%;width:12%;min-height:15%;display:grid;place-items:center;text-align:center;background:var(--purple-light);border-radius:58px;font:400 clamp(22px,4vw,50px)/.95 "Tilt Warp",system-ui,sans-serif;padding:10px}
     .spin-count small{display:block;font-size:.54em}
@@ -73,24 +80,39 @@
     .game-spark{display:none;position:absolute;z-index:0;color:#c770ff;font-family:Arial,sans-serif;line-height:.8;pointer-events:none;user-select:none}
     @media(min-width:721px) and (orientation:landscape){.game-box{z-index:1}.game-balance,.spin-count,.spin-demo{z-index:2}.game-spark{display:block}.game-spark.left{left:1.5%;top:2%;font-size:clamp(180px,25vw,350px)}.game-spark.right{right:1.5%;top:40%;font-size:clamp(100px,14vw,185px)}.game-spark.bottom{right:2.5%;bottom:2%;font-size:clamp(180px,25vw,330px)}}
     .game-status{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+    .balance-alert{position:fixed;left:50vw;top:50vh;z-index:100;width:min(86vw,520px);padding:24px 30px;transform:translate(-50%,-50%);border:4px solid #eec7fc;border-radius:26px;background:#fff;color:#3e0067;text-align:center;font:700 clamp(20px,2.5vw,30px)/1.3 "Tilt Warp",system-ui,sans-serif;box-shadow:0 12px 0 rgba(62,0,103,.25),0 20px 40px rgba(0,0,0,.25);animation:result-pop-in .22s ease-out both}
+    .balance-alert[hidden]{display:none}
+    .balance-alert::after{position:absolute;left:50%;bottom:-17px;width:26px;height:26px;transform:translateX(-50%) rotate(45deg);border-right:4px solid #eec7fc;border-bottom:4px solid #eec7fc;background:#fff;content:""}
     .result-pop{position:absolute;inset:0;z-index:8;display:grid;place-items:center;pointer-events:none}
     .result-pop[hidden]{display:none}
     .result-pop.loss{background:rgba(0,0,0,.4)}
     .result-art{width:min(100vw,calc(100vh * 1.40625));aspect-ratio:1440/1024;animation:result-pop-in .24s cubic-bezier(.2,.8,.2,1) both}
     .result-art img{display:block;width:100%;height:100%}
     @keyframes result-pop-in{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+    .round-start-pop,.round-end-pop{position:absolute;inset:0;z-index:9;display:grid;place-items:center}
+    .round-start-pop[hidden]{display:none}
+    .round-end-pop[hidden]{display:none}
+    .round-start-button{position:relative;display:grid;place-items:center;width:min(90vw,1100px);aspect-ratio:3/1;padding:0;border:0;background:transparent;cursor:pointer;animation:result-pop-in .3s cubic-bezier(.2,.8,.2,1) both}
+    .round-start-stars{position:absolute;inset:0;pointer-events:none}
+    .round-start-star{position:absolute;display:block;width:clamp(105px,17vw,230px);aspect-ratio:1;background:linear-gradient(145deg,#ffe63f 0%,#ffc21a 72%,#f29a00 100%);clip-path:polygon(50% 0%,61% 34%,98% 25%,70% 53%,89% 88%,54% 70%,27% 100%,31% 62%,0% 48%,38% 39%);filter:drop-shadow(0 7px 0 #9b4c00)}
+    .round-start-star.left{left:7%;top:12%;transform:rotate(-12deg)}
+    .round-start-star.right{right:7%;top:11%;transform:rotate(13deg) scale(.88)}
+    .round-start-star.bottom{left:43%;bottom:0;transform:rotate(8deg) scale(.48)}
+    .round-start-title{position:relative;z-index:1;color:#3e0067;font:900 clamp(38px,7.2vw,118px)/1 "Tilt Warp",system-ui,sans-serif;letter-spacing:.015em;white-space:nowrap;-webkit-text-stroke:clamp(2px,.42vw,7px) #fff;paint-order:stroke fill;text-shadow:0 5px 0 #19002b,0 9px 14px rgba(0,0,0,.28)}
+    .round-end-button{display:block;width:min(100vw,calc(100vh * 1.40625));aspect-ratio:1440/1024;padding:0;border:0;background:transparent;cursor:pointer;animation:result-pop-in .3s cubic-bezier(.2,.8,.2,1) both}
+    .round-end-button img{display:block;width:100%;height:100%;object-fit:contain}
     @media(min-width:721px) and (orientation:landscape){
       .game-box{left:0;top:0;width:100%;height:100%;border-radius:0;background:transparent;box-shadow:none}
       .game-name{display:none}
       .game-reels{left:26.065%;right:auto;top:24.438%;bottom:auto;width:47.938%;height:51.28%;border-radius:30px}
-      .game-balance{display:none}
+      .game-balance{display:grid;left:72%;right:auto;top:6.5%;width:26.5%;height:6.8%;min-height:0;border-radius:18px;background:var(--purple-light);font-size:clamp(22px,3vw,38px);z-index:3}
       .spin-count{left:6.806%;top:42.38%;width:11.46%;height:15.14%;min-height:0;border-radius:49px;font-size:clamp(40px,4.2vw,60px)}
       .spin-demo{left:62.57%;top:83%;width:14.1%;height:8.69%;border-radius:30px;background:transparent;color:transparent;box-shadow:none;font-size:0}
       .spin-demo:hover,.spin-demo:active{filter:none;transform:none}
       .game-status{left:42%;right:22%;bottom:7%;font-size:clamp(16px,1.8vw,24px)}
       .game-round{display:none}
     }
-    @media(max-width:720px),(orientation:portrait){.game-layout{background-image:none}.result-art{width:100vw;height:100svh;aspect-ratio:auto}.result-art img{object-fit:contain}}
+    @media(max-width:720px),(orientation:portrait){.game-layout{background-image:none}.result-art{width:100vw;height:100svh;aspect-ratio:auto}.result-art img{object-fit:contain}.round-end-button{width:100vw;height:100svh;aspect-ratio:auto}.round-start-button{width:96vw;aspect-ratio:2.7/1}.round-start-star{width:clamp(75px,22vw,135px)}.round-start-title{font-size:clamp(30px,8vw,58px);-webkit-text-stroke:2px #fff}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
   </style>
 </head>
@@ -140,12 +162,12 @@
       <div class="game-box">
         <div class="game-name">NEWMED67</div>
         <div class="game-reels" id="gameReels" aria-live="polite">
-          <div class="game-cell">🍉</div><div class="game-cell">🍉</div><div class="game-cell">🍇</div>
-          <div class="game-cell">🥭</div><div class="game-cell">🥭</div><div class="game-cell">🥭</div>
-          <div class="game-cell">🍊</div><div class="game-cell">🍇</div><div class="game-cell">🍉</div>
+          <div class="game-cell"><span class="fruit-symbol">🍉</span></div><div class="game-cell"><span class="fruit-symbol">🍉</span></div><div class="game-cell"><span class="fruit-symbol">🍇</span></div>
+          <div class="game-cell"><span class="fruit-symbol">🥭</span></div><div class="game-cell"><span class="fruit-symbol">🥭</span></div><div class="game-cell"><span class="fruit-symbol">🥭</span></div>
+          <div class="game-cell"><span class="fruit-symbol">🍊</span></div><div class="game-cell"><span class="fruit-symbol">🍇</span></div><div class="game-cell"><span class="fruit-symbol">🍉</span></div>
         </div>
       </div>
-      <div class="game-balance">20.000 POIN</div>
+      <div class="game-balance" id="gameBalance">Rp0</div>
       <div class="spin-count" id="spinCount">5x<small>SPIN</small></div>
       <button class="game-topup-hotspot" id="gameTopup" type="button" aria-label="Kembali ke halaman Top Up">TOP UP</button>
       <button class="spin-demo" id="spinButton" type="button">SPIN</button>
@@ -153,6 +175,18 @@
       <div class="game-round" id="gameRound">RONDE 1</div>
     </div>
     <div class="result-pop" id="resultPop" hidden aria-hidden="true"><div class="result-art"><img id="resultImage" src="menang-pop.svg" alt=""></div></div>
+    <div class="round-start-pop" id="roundStartPop" hidden>
+      <button class="round-start-button" id="roundStartButton" type="button" aria-label="Mulai ronde">
+        <span class="round-start-stars" aria-hidden="true"><i class="round-start-star left"></i><i class="round-start-star right"></i><i class="round-start-star bottom"></i></span>
+        <span class="round-start-title" id="roundIntroTitle">RONDE 1</span>
+      </button>
+    </div>
+    <div class="round-end-pop" id="roundEndPop" hidden>
+      <button class="round-end-button" id="roundEndButton" type="button" aria-label="Lanjut ke ronde berikutnya">
+        <img src="ending-round.svg" alt="Ronde selesai. Klik untuk lanjut.">
+      </button>
+    </div>
+    <div class="balance-alert" id="balanceAlert" role="alert" aria-live="assertive" hidden>Saldo tidak cukup. Mohon top up atau ajukan pinjaman.</div>
   </section>
   <script>
     const welcome=document.querySelector('#welcome');
@@ -160,50 +194,136 @@
     const success=document.querySelector('#success');
     const game=document.querySelector('#game');
     const confirmButton=document.querySelector('#confirm');
+    const gameBalance=document.querySelector('#gameBalance');
     let selectedAmount='';
+    let balance=0;
+    let activeScreen='welcome';
+    let hasStartedGame=false;
+    let roundStage='playing';
+    let spinsLeft=5,round=1,spinning=false;
+    const formatBalance=value=>new Intl.NumberFormat('id-ID').format(value);
+    const updateBalance=()=>{gameBalance.textContent=`Rp${formatBalance(balance)}`};
+    const spinCost=10000;
+    const spinCount=document.querySelector('#spinCount');
+    const spinButton=document.querySelector('#spinButton');
+    const updateSpinCount=()=>{
+      spinCount.innerHTML=`${spinsLeft}x<small>SPIN</small>`;
+      spinButton.textContent='SPIN';
+    };
+    const stateKey='newmed67-demo-state';
+    const saveState=()=>{
+      try{
+        sessionStorage.setItem(stateKey,JSON.stringify({screen:activeScreen,balance,selectedAmount,spinsLeft,round,hasStartedGame,roundStage,symbols:cells.map(cell=>cell.textContent)}));
+      }catch{}
+    };
     document.querySelectorAll('.start-action').forEach(button=>button.addEventListener('click',()=>{
       welcome.hidden=true;
       topup.hidden=false;
+      activeScreen='topup';
       document.body.classList.add('topup');
+      saveState();
     }));
     document.querySelectorAll('.amount').forEach(button=>button.addEventListener('click',()=>{
       document.querySelectorAll('.amount').forEach(item=>item.setAttribute('aria-pressed','false'));
       button.setAttribute('aria-pressed','true');
       selectedAmount=button.textContent;
       confirmButton.disabled=false;
+      saveState();
     }));
     confirmButton.addEventListener('click',()=>{
       if(!selectedAmount)return;
+      balance+=Number(selectedAmount.replace(/\D/g,''));
+      updateBalance();
+      updateSpinCount();
       topup.hidden=true;
       success.hidden=false;
+      activeScreen='success';
       document.body.classList.remove('topup');
       document.body.classList.add('success');
+      saveState();
     });
     document.querySelector('#continue').addEventListener('click',()=>{
       success.hidden=true;
       game.hidden=false;
+      updateSpinCount();
+      const isFirstEntry=!hasStartedGame;
+      hasStartedGame=true;
+      activeScreen='game';
       document.body.classList.remove('success');
       document.body.classList.add('game');
+      saveState();
+      if(isFirstEntry)showRoundIntro();
     });
     document.querySelector('#gameTopup').addEventListener('click',()=>{
       game.hidden=true;
       topup.hidden=false;
+      activeScreen='topup';
       selectedAmount='';
       document.querySelectorAll('.amount').forEach(item=>item.setAttribute('aria-pressed','false'));
       confirmButton.disabled=true;
       document.body.classList.remove('game');
       document.body.classList.add('topup');
+      saveState();
     });
     const symbols=['🍉','🍇','🥭','🍊','🍒','🍋'];
-    const cells=[...document.querySelectorAll('.game-cell')];
+    const cells=[...document.querySelectorAll('.fruit-symbol')];
     const reels=document.querySelector('#gameReels');
-    const spinButton=document.querySelector('#spinButton');
-    const spinCount=document.querySelector('#spinCount');
     const gameStatus=document.querySelector('#gameStatus');
     const gameRound=document.querySelector('#gameRound');
     const resultPop=document.querySelector('#resultPop');
     const resultImage=document.querySelector('#resultImage');
-    let spinsLeft=5,round=1,spinning=false;
+    const roundStartPop=document.querySelector('#roundStartPop');
+    const roundStartButton=document.querySelector('#roundStartButton');
+    const roundIntroTitle=document.querySelector('#roundIntroTitle');
+    const roundEndPop=document.querySelector('#roundEndPop');
+    const roundEndButton=document.querySelector('#roundEndButton');
+    const balanceAlert=document.querySelector('#balanceAlert');
+    let roundIntroTimer;
+    let balanceAlertTimer;
+    const showBalanceAlert=()=>{
+      clearTimeout(balanceAlertTimer);
+      balanceAlert.hidden=false;
+      balanceAlertTimer=setTimeout(()=>{balanceAlert.hidden=true},5000);
+    };
+    const closeRoundIntro=()=>{
+      clearTimeout(roundIntroTimer);
+      if(roundStartPop.hidden)return;
+      roundStartPop.hidden=true;
+      roundStage='playing';
+      spinning=false;
+      spinButton.disabled=false;
+      gameStatus.textContent='Ronde baru dimulai.';
+      saveState();
+    };
+    const showRoundIntro=()=>{
+      roundIntroTitle.textContent=`RONDE ${round}`;
+      roundStage='intro';
+      roundStartPop.hidden=false;
+      spinButton.disabled=true;
+      spinning=true;
+      roundStartButton.focus();
+      saveState();
+      clearTimeout(roundIntroTimer);
+      roundIntroTimer=setTimeout(closeRoundIntro,5000);
+    };
+    const showRoundEnd=()=>{
+      roundStage='ending';
+      roundEndPop.hidden=false;
+      spinButton.disabled=true;
+      spinning=true;
+      roundEndButton.focus();
+      saveState();
+    };
+    roundStartPop.addEventListener('click',closeRoundIntro);
+    roundEndButton.addEventListener('click',()=>{
+      roundEndPop.hidden=true;
+      round++;
+      spinsLeft=5;
+      gameRound.textContent=`RONDE ${round}`;
+      updateSpinCount();
+      saveState();
+      showRoundIntro();
+    });
     const randomSymbol=()=>symbols[Math.floor(Math.random()*symbols.length)];
     const hasWinningRow=result=>[0,3,6].some(start=>result[start]===result[start+1]&&result[start+1]===result[start+2]);
     const makeSpinResult=()=>{
@@ -215,17 +335,77 @@
     };
     spinButton.addEventListener('click',()=>{
       if(spinning)return;
-      if(spinsLeft===0){round++;spinsLeft=5;gameRound.textContent=`RONDE ${round}`;spinCount.innerHTML='5x<small>SPIN</small>';spinButton.textContent='SPIN';gameStatus.textContent='Ronde baru dimulai.';return}
-      spinning=true;spinsLeft--;spinCount.innerHTML=`${spinsLeft}x<small>SPIN</small>`;spinButton.disabled=true;gameStatus.textContent='Buah sedang berputar…';reels.classList.add('spinning');
-      const timer=setInterval(()=>cells.forEach(cell=>cell.textContent=randomSymbol()),85);
-      setTimeout(()=>{
-        clearInterval(timer);reels.classList.remove('spinning');
-        const{win,result}=makeSpinResult();cells.forEach((cell,index)=>cell.textContent=result[index]);
-        gameStatus.textContent=win?'Menang.':'Kalah.';resultImage.src=win?'menang-pop.svg':'kalah-rugi-pop.svg';resultPop.className=`result-pop ${win?'win':'loss'}`;resultPop.hidden=false;
-        if(spinsLeft===0)spinButton.textContent='RONDE BARU';
-        setTimeout(()=>{resultPop.hidden=true;spinning=false;spinButton.disabled=false},1450);
-      },1250);
+      if(balance<spinCost){updateSpinCount();gameStatus.textContent='Saldo tidak cukup. Mohon top up atau ajukan pinjaman.';showBalanceAlert();return}
+      balance-=spinCost;spinsLeft=Math.max(0,spinsLeft-1);updateBalance();updateSpinCount();
+      spinning=true;spinButton.disabled=true;gameStatus.textContent='Buah sedang berputar…';reels.classList.add('spinning');
+      saveState();
+      const{win,result}=makeSpinResult();
+      const stoppedColumns=new Set();
+      const timer=setInterval(()=>cells.forEach((cell,index)=>{
+        if(!stoppedColumns.has(index%3))cell.textContent=randomSymbol();
+      }),65);
+      const stopColumn=(column)=>{
+        stoppedColumns.add(column);
+        for(let row=0;row<3;row++)cells[row*3+column].textContent=result[row*3+column];
+        cells.filter((_,index)=>index%3===column).forEach(cell=>{
+          const symbol=cell.querySelector('.fruit-symbol');
+          if(symbol)symbol.style.animationPlayState='paused';
+        });
+        if(column===2){
+          clearInterval(timer);reels.classList.remove('spinning');
+          cells.forEach(cell=>cell.querySelector('.fruit-symbol')?.style.removeProperty('animation-play-state'));
+          gameStatus.textContent=win?'Menang.':'Kalah.';resultImage.src=win?'menang-pop.svg':'kalah-rugi-pop.svg';resultPop.className=`result-pop ${win?'win':'loss'}`;resultPop.hidden=false;
+          saveState();
+          setTimeout(()=>{
+            resultPop.hidden=true;
+            if(balance<spinCost)showBalanceAlert();
+            if(spinsLeft===0){
+              gameStatus.textContent=`Ronde ${round} selesai.`;
+              saveState();
+              showRoundEnd();
+            }else{
+              spinning=false;spinButton.disabled=false;
+            }
+          },1450);
+        }
+      };
+      [850,1120,1390].forEach((delay,column)=>setTimeout(()=>stopColumn(column),delay));
     });
+    try{
+      const saved=JSON.parse(sessionStorage.getItem(stateKey)||'null');
+      if(saved&&['welcome','topup','success','game'].includes(saved.screen)){
+        activeScreen=saved.screen;
+        balance=Number(saved.balance)||0;
+        selectedAmount=saved.selectedAmount||'';
+        hasStartedGame=Boolean(saved.hasStartedGame||saved.screen==='game');
+        roundStage=saved.roundStage||'playing';
+        round=Number.isInteger(saved.round)?saved.round:1;
+        welcome.hidden=activeScreen!=='welcome';
+        topup.hidden=activeScreen!=='topup';
+        success.hidden=activeScreen!=='success';
+        game.hidden=activeScreen!=='game';
+        document.body.classList.toggle('topup',activeScreen==='topup');
+        document.body.classList.toggle('success',activeScreen==='success');
+        document.body.classList.toggle('game',activeScreen==='game');
+        updateBalance();
+        spinsLeft=Number.isInteger(saved.spinsLeft)?saved.spinsLeft:5;
+        if(spinsLeft<=0){spinsLeft=0;roundStage='ending'}
+        updateSpinCount();
+        gameRound.textContent=`RONDE ${round}`;
+        if(selectedAmount){
+          document.querySelectorAll('.amount').forEach(button=>{
+            const isSelected=button.textContent===selectedAmount;
+            button.setAttribute('aria-pressed',String(isSelected));
+          });
+          confirmButton.disabled=false;
+        }
+        if(Array.isArray(saved.symbols)&&saved.symbols.length===cells.length){
+          cells.forEach((cell,index)=>cell.textContent=saved.symbols[index]);
+        }
+        if(activeScreen==='game'&&roundStage==='intro')showRoundIntro();
+        else if(activeScreen==='game'&&roundStage==='ending')showRoundEnd();
+      }
+    }catch{}
   </script>
 </body>
 </html>
