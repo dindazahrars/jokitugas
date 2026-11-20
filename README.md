@@ -2,4 +2,4 @@
 
 Static demo site. The entry page is `index.html`.
 
-GitHub Pages deployment runs automatically from the `main` branch using the workflow in `.github/workflows/pages.yml`.
+Deployment is handled by Vercel. Connect this repository to the Vercel project to publish updates from the `main` branch.
