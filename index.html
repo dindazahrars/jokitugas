@@ -38,8 +38,26 @@
     .success-icon{width:clamp(110px,14vw,200px);height:clamp(110px,14vw,200px);margin:0 0 clamp(20px,3vw,36px)}
     .success-copy{font:400 clamp(23px,3vw,43px)/1.2 "Aoboshi One",Georgia,serif;color:#888;margin:0 0 26px}
     .continue{min-width:clamp(220px,20vw,285px);min-height:clamp(68px,6.8vw,94px);padding:10px 24px;border-radius:30px;background:var(--yellow);font:400 clamp(30px,3vw,43px)/1 "Tilt Warp",system-ui,sans-serif}
+    body.game .star{display:none}
+    .game-page{padding:0;overflow:auto}
+    .game-layout{position:relative;width:min(100vw,calc(100vh * 1.40625));aspect-ratio:1440/1024;}
+    .game-box{position:absolute;left:23.3%;top:11.5%;width:53.5%;height:68.5%;border-radius:clamp(32px,4vw,58px);background:var(--purple-light);box-shadow:0 14px 0 #b856e1}
+    .game-name{position:absolute;left:16.4%;top:0;width:67.2%;height:19%;display:grid;place-items:center;background:var(--purple-light);border-radius:30px 30px 0 0;font:400 clamp(24px,5vw,64px)/1 "Tilt Warp",system-ui,sans-serif;white-space:nowrap}
+    .game-reels{position:absolute;left:5.2%;right:5.2%;top:18.8%;bottom:6.3%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:5px;padding:5px;overflow:hidden;border-radius:30px;background:#eec7fc}
+    .game-cell{display:grid;place-items:center;min-width:0;min-height:0;background:#fff;font-size:clamp(42px,7.8vw,112px);user-select:none}
+    .game-reels.spinning .game-cell{animation:fruit-hop .12s ease-in-out infinite alternate}
+    @keyframes fruit-hop{from{transform:translateY(-12%);filter:blur(1px)}to{transform:translateY(12%);filter:blur(1px)}}
+    .game-balance{position:absolute;right:3.8%;top:6.5%;width:26.5%;min-height:7%;display:grid;place-items:center;background:var(--purple-light);border-radius:18px;font:400 clamp(18px,3vw,38px)/1 "Tilt Warp",system-ui,sans-serif}
+    .spin-count{position:absolute;left:6.8%;top:42.4%;width:12%;min-height:15%;display:grid;place-items:center;text-align:center;background:var(--purple-light);border-radius:58px;font:400 clamp(22px,4vw,50px)/.95 "Tilt Warp",system-ui,sans-serif;padding:10px}
+    .spin-count small{display:block;font-size:.54em}
+    .spin-demo{position:absolute;left:62.5%;top:83%;width:14.2%;height:8.7%;border-radius:22px;background:var(--yellow);box-shadow:0 5px 0 #d6aa14;font:400 clamp(24px,4vw,44px)/1 "Tilt Warp",system-ui,sans-serif}
+    .spin-demo:disabled{opacity:.7;cursor:wait;transform:none}
+    .game-topup-hotspot{position:absolute;z-index:3;left:83.47%;top:14.94%;width:12.71%;height:5.96%;padding:0;background:transparent;color:transparent;font-size:0;transition:none}
+    .game-topup-hotspot:hover,.game-topup-hotspot:active{filter:none;transform:none}
+    .game-status{position:absolute;left:38%;right:23%;bottom:7%;min-height:5%;display:grid;place-items:center;text-align:center;color:#9f42d1;font:400 clamp(13px,2vw,24px)/1.1 "Tilt Warp",system-ui,sans-serif}
+    .game-round{position:absolute;left:5%;bottom:5%;color:#fff;font:400 clamp(18px,2.4vw,32px)/1 "Aoboshi One",Georgia,serif}
     .message{position:absolute;left:18px;right:18px;bottom:12px;margin:0;color:#4a175f;font-size:13px;font-weight:700;min-height:18px}
-    @media(max-width:720px){.screen{padding:20px 16px}.welcome-card,.topup-card,.success-card{min-height:calc(100svh - 40px);border-radius:42px;padding:38px 23px}.welcome h1{font-size:clamp(39px,11vw,64px);margin-bottom:24px}.welcome-copy{font-size:clamp(18px,5.2vw,25px);line-height:1.42}.welcome-question{font-size:clamp(18px,5.2vw,25px);margin:35px 0 27px}.start-button{min-width:0;width:min(100%,360px);min-height:76px;font-size:clamp(34px,9vw,48px);border-radius:29px}.coin{width:66px;border-width:4px;box-shadow:inset 0 0 0 5px #ffcf27,inset 0 0 0 9px #ff9f1c}.coin.one{right:11px;bottom:12px;transform:none}.coin.two{right:8px;bottom:auto;top:10px;transform:none}.topup-card{padding:40px 20px}.topup h1{font-size:clamp(58px,17vw,84px);margin-bottom:42px}.amounts{gap:17px;margin-bottom:38px}.amount{min-width:min(100%,265px);min-height:76px;font-size:clamp(34px,10vw,46px);border-radius:27px}.confirm{min-width:min(100%,260px);min-height:75px;font-size:34px;border-radius:25px}.success h1{font-size:clamp(57px,16vw,82px);line-height:1.25;margin-bottom:16px}.success-icon{width:112px;height:112px;margin-bottom:19px}.success-copy{font-size:clamp(21px,6vw,28px);margin-bottom:23px}.continue{min-width:min(100%,260px);min-height:72px;font-size:34px;border-radius:25px}.star{font-size:300px}body.topup .star.a,body.success .star.a{right:-55px;top:-20px}body.topup .star.b,body.success .star.b{left:-150px;top:40%;font-size:260px}body.topup .star.c,body.success .star.c{left:-92px;bottom:-72px;font-size:320px}body.topup .star.d,body.success .star.d{right:-145px;bottom:14%;font-size:260px}}
+    @media(max-width:720px){.screen{padding:20px 16px}.welcome-card,.topup-card,.success-card{min-height:calc(100svh - 40px);border-radius:42px;padding:38px 23px}.welcome h1{font-size:clamp(39px,11vw,64px);margin-bottom:24px}.welcome-copy{font-size:clamp(18px,5.2vw,25px);line-height:1.42}.welcome-question{font-size:clamp(18px,5.2vw,25px);margin:35px 0 27px}.start-button{min-width:0;width:min(100%,360px);min-height:76px;font-size:clamp(34px,9vw,48px);border-radius:29px}.coin{width:66px;border-width:4px;box-shadow:inset 0 0 0 5px #ffcf27,inset 0 0 0 9px #ff9f1c}.coin.one{right:11px;bottom:12px;transform:none}.coin.two{right:8px;bottom:auto;top:10px;transform:none}.topup-card{padding:40px 20px}.topup h1{font-size:clamp(58px,17vw,84px);margin-bottom:42px}.amounts{gap:17px;margin-bottom:38px}.amount{min-width:min(100%,265px);min-height:76px;font-size:clamp(34px,10vw,46px);border-radius:27px}.confirm{min-width:min(100%,260px);min-height:75px;font-size:34px;border-radius:25px}.success h1{font-size:clamp(57px,16vw,82px);line-height:1.25;margin-bottom:16px}.success-icon{width:112px;height:112px;margin-bottom:19px}.success-copy{font-size:clamp(21px,6vw,28px);margin-bottom:23px}.continue{min-width:min(100%,260px);min-height:72px;font-size:34px;border-radius:25px}.star{font-size:300px}body.topup .star.a,body.success .star.a{right:-55px;top:-20px}body.topup .star.b,body.success .star.b{left:-150px;top:40%;font-size:260px}body.topup .star.c,body.success .star.c{left:-92px;bottom:-72px;font-size:320px}body.topup .star.d,body.success .star.d{right:-145px;bottom:14%;font-size:260px}.game-layout{width:100vw;height:100svh;aspect-ratio:auto}.game-box{left:8%;top:17%;width:84%;height:57%;border-radius:32px}.game-name{font-size:clamp(28px,8vw,44px)}.game-reels{border-radius:22px}.game-cell{font-size:clamp(40px,12vw,76px)}.game-balance{right:8%;top:6%;width:40%;min-height:7%;font-size:18px}.game-topup-hotspot{left:auto;right:8%;top:14%;width:40%;height:7%;border-radius:17px;background:var(--yellow);color:var(--black);font-size:18px}.spin-count{left:6%;top:33%;width:18%;min-height:13%;font-size:22px;border-radius:34px}.spin-demo{left:58%;top:79%;width:30%;height:9%;font-size:clamp(23px,7vw,34px)}.game-status{left:25%;right:35%;bottom:9%;font-size:14px}.game-round{left:7%;bottom:6%;font-size:15px}}
     .welcome .coin.one{right:1.5%;left:auto;top:24%;bottom:auto;transform:none}
     .welcome .coin.two{left:1.5%;right:auto;top:62%;bottom:auto;transform:none}
     @media(max-width:720px){.welcome .coin{width:clamp(54px,16vw,76px)}.welcome .coin.one{right:2%;left:auto;top:16%;bottom:auto}.welcome .coin.two{left:2%;right:auto;top:68%;bottom:auto}}
@@ -51,6 +69,28 @@
     .welcome .start-hotspot:hover,.welcome .start-hotspot:active{filter:none;transform:none}
     .welcome .start-hotspot:focus-visible{outline:4px solid #3e0067;outline-offset:3px}
     @media(max-width:720px),(orientation:portrait){.welcome{padding:20px 16px}.welcome-art{display:none}.welcome-fallback{display:grid;width:100%;min-height:calc(100svh - 40px);place-items:center}.welcome .coin.one{right:2%;left:auto;top:16%;bottom:auto}.welcome .coin.two{left:2%;right:auto;top:68%;bottom:auto}}
+    .game-layout{background:url("main-screen.svg") center/100% 100% no-repeat}
+    .game-spark{display:none;position:absolute;z-index:0;color:#c770ff;font-family:Arial,sans-serif;line-height:.8;pointer-events:none;user-select:none}
+    @media(min-width:721px) and (orientation:landscape){.game-box{z-index:1}.game-balance,.spin-count,.spin-demo{z-index:2}.game-spark{display:block}.game-spark.left{left:1.5%;top:2%;font-size:clamp(180px,25vw,350px)}.game-spark.right{right:1.5%;top:40%;font-size:clamp(100px,14vw,185px)}.game-spark.bottom{right:2.5%;bottom:2%;font-size:clamp(180px,25vw,330px)}}
+    .game-status{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+    .result-pop{position:absolute;inset:0;z-index:8;display:grid;place-items:center;pointer-events:none}
+    .result-pop[hidden]{display:none}
+    .result-pop.loss{background:rgba(0,0,0,.4)}
+    .result-art{width:min(100vw,calc(100vh * 1.40625));aspect-ratio:1440/1024;animation:result-pop-in .24s cubic-bezier(.2,.8,.2,1) both}
+    .result-art img{display:block;width:100%;height:100%}
+    @keyframes result-pop-in{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+    @media(min-width:721px) and (orientation:landscape){
+      .game-box{left:0;top:0;width:100%;height:100%;border-radius:0;background:transparent;box-shadow:none}
+      .game-name{display:none}
+      .game-reels{left:26.065%;right:auto;top:24.438%;bottom:auto;width:47.938%;height:51.28%;border-radius:30px}
+      .game-balance{display:none}
+      .spin-count{left:6.806%;top:42.38%;width:11.46%;height:15.14%;min-height:0;border-radius:49px;font-size:clamp(40px,4.2vw,60px)}
+      .spin-demo{left:62.57%;top:83%;width:14.1%;height:8.69%;border-radius:30px;background:transparent;color:transparent;box-shadow:none;font-size:0}
+      .spin-demo:hover,.spin-demo:active{filter:none;transform:none}
+      .game-status{left:42%;right:22%;bottom:7%;font-size:clamp(16px,1.8vw,24px)}
+      .game-round{display:none}
+    }
+    @media(max-width:720px),(orientation:portrait){.game-layout{background-image:none}.result-art{width:100vw;height:100svh;aspect-ratio:auto}.result-art img{object-fit:contain}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
   </style>
 </head>
@@ -94,10 +134,31 @@
       <button class="continue" id="continue" type="button">Lanjutkan</button>
     </div>
   </section>
+  <section class="screen game-page" id="game" aria-label="Permainan buah demo" hidden>
+    <div class="game-layout">
+      <span class="game-spark left" aria-hidden="true">★</span><span class="game-spark right" aria-hidden="true">★</span><span class="game-spark bottom" aria-hidden="true">★</span>
+      <div class="game-box">
+        <div class="game-name">NEWMED67</div>
+        <div class="game-reels" id="gameReels" aria-live="polite">
+          <div class="game-cell">🍉</div><div class="game-cell">🍉</div><div class="game-cell">🍇</div>
+          <div class="game-cell">🥭</div><div class="game-cell">🥭</div><div class="game-cell">🥭</div>
+          <div class="game-cell">🍊</div><div class="game-cell">🍇</div><div class="game-cell">🍉</div>
+        </div>
+      </div>
+      <div class="game-balance">20.000 POIN</div>
+      <div class="spin-count" id="spinCount">5x<small>SPIN</small></div>
+      <button class="game-topup-hotspot" id="gameTopup" type="button" aria-label="Kembali ke halaman Top Up">TOP UP</button>
+      <button class="spin-demo" id="spinButton" type="button">SPIN</button>
+      <div class="game-status" id="gameStatus" role="status">Coba keberuntunganmu!</div>
+      <div class="game-round" id="gameRound">RONDE 1</div>
+    </div>
+    <div class="result-pop" id="resultPop" hidden aria-hidden="true"><div class="result-art"><img id="resultImage" src="menang-pop.svg" alt=""></div></div>
+  </section>
   <script>
     const welcome=document.querySelector('#welcome');
     const topup=document.querySelector('#topup');
     const success=document.querySelector('#success');
+    const game=document.querySelector('#game');
     const confirmButton=document.querySelector('#confirm');
     let selectedAmount='';
     document.querySelectorAll('.start-action').forEach(button=>button.addEventListener('click',()=>{
@@ -117,6 +178,53 @@
       success.hidden=false;
       document.body.classList.remove('topup');
       document.body.classList.add('success');
+    });
+    document.querySelector('#continue').addEventListener('click',()=>{
+      success.hidden=true;
+      game.hidden=false;
+      document.body.classList.remove('success');
+      document.body.classList.add('game');
+    });
+    document.querySelector('#gameTopup').addEventListener('click',()=>{
+      game.hidden=true;
+      topup.hidden=false;
+      selectedAmount='';
+      document.querySelectorAll('.amount').forEach(item=>item.setAttribute('aria-pressed','false'));
+      confirmButton.disabled=true;
+      document.body.classList.remove('game');
+      document.body.classList.add('topup');
+    });
+    const symbols=['🍉','🍇','🥭','🍊','🍒','🍋'];
+    const cells=[...document.querySelectorAll('.game-cell')];
+    const reels=document.querySelector('#gameReels');
+    const spinButton=document.querySelector('#spinButton');
+    const spinCount=document.querySelector('#spinCount');
+    const gameStatus=document.querySelector('#gameStatus');
+    const gameRound=document.querySelector('#gameRound');
+    const resultPop=document.querySelector('#resultPop');
+    const resultImage=document.querySelector('#resultImage');
+    let spinsLeft=5,round=1,spinning=false;
+    const randomSymbol=()=>symbols[Math.floor(Math.random()*symbols.length)];
+    const hasWinningRow=result=>[0,3,6].some(start=>result[start]===result[start+1]&&result[start+1]===result[start+2]);
+    const makeSpinResult=()=>{
+      const win=Math.random()<0.5;
+      let result=Array.from({length:9},randomSymbol);
+      if(win){const row=Math.floor(Math.random()*3)*3;const fruit=randomSymbol();result[row]=fruit;result[row+1]=fruit;result[row+2]=fruit;}
+      else{while(hasWinningRow(result))result=Array.from({length:9},randomSymbol);}
+      return{win,result};
+    };
+    spinButton.addEventListener('click',()=>{
+      if(spinning)return;
+      if(spinsLeft===0){round++;spinsLeft=5;gameRound.textContent=`RONDE ${round}`;spinCount.innerHTML='5x<small>SPIN</small>';spinButton.textContent='SPIN';gameStatus.textContent='Ronde baru dimulai.';return}
+      spinning=true;spinsLeft--;spinCount.innerHTML=`${spinsLeft}x<small>SPIN</small>`;spinButton.disabled=true;gameStatus.textContent='Buah sedang berputar…';reels.classList.add('spinning');
+      const timer=setInterval(()=>cells.forEach(cell=>cell.textContent=randomSymbol()),85);
+      setTimeout(()=>{
+        clearInterval(timer);reels.classList.remove('spinning');
+        const{win,result}=makeSpinResult();cells.forEach((cell,index)=>cell.textContent=result[index]);
+        gameStatus.textContent=win?'Menang.':'Kalah.';resultImage.src=win?'menang-pop.svg':'kalah-rugi-pop.svg';resultPop.className=`result-pop ${win?'win':'loss'}`;resultPop.hidden=false;
+        if(spinsLeft===0)spinButton.textContent='RONDE BARU';
+        setTimeout(()=>{resultPop.hidden=true;spinning=false;spinButton.disabled=false},1450);
+      },1250);
     });
   </script>
 </body>
