@@ -80,9 +80,65 @@
     .game-spark{display:none;position:absolute;z-index:0;color:#c770ff;font-family:Arial,sans-serif;line-height:.8;pointer-events:none;user-select:none}
     @media(min-width:721px) and (orientation:landscape){.game-box{z-index:1}.game-balance,.spin-count,.spin-demo{z-index:2}.game-spark{display:block}.game-spark.left{left:1.5%;top:2%;font-size:clamp(180px,25vw,350px)}.game-spark.right{right:1.5%;top:40%;font-size:clamp(100px,14vw,185px)}.game-spark.bottom{right:2.5%;bottom:2%;font-size:clamp(180px,25vw,330px)}}
     .game-status{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
-    .balance-alert{position:fixed;left:50vw;top:50vh;z-index:100;width:min(86vw,520px);padding:24px 30px;transform:translate(-50%,-50%);border:4px solid #eec7fc;border-radius:26px;background:#fff;color:#3e0067;text-align:center;font:700 clamp(20px,2.5vw,30px)/1.3 "Tilt Warp",system-ui,sans-serif;box-shadow:0 12px 0 rgba(62,0,103,.25),0 20px 40px rgba(0,0,0,.25);animation:result-pop-in .22s ease-out both}
+    .balance-alert{position:absolute;left:50%;top:20%;z-index:100;box-sizing:border-box;width:min(86vw,520px);padding:24px 30px;transform:none;border:4px solid #eec7fc;border-radius:26px;background:#fff;color:#3e0067;text-align:center;font:700 clamp(20px,2.5vw,30px)/1.3 "Tilt Warp",system-ui,sans-serif;box-shadow:0 12px 0 rgba(62,0,103,.25),0 20px 40px rgba(0,0,0,.25);animation:result-pop-in .22s ease-out both}
     .balance-alert[hidden]{display:none}
-    .balance-alert::after{position:absolute;left:50%;bottom:-17px;width:26px;height:26px;transform:translateX(-50%) rotate(45deg);border-right:4px solid #eec7fc;border-bottom:4px solid #eec7fc;background:#fff;content:""}
+    .balance-alert::before,.balance-alert::after{position:absolute;left:50%;transform:translateX(-50%);width:32px;height:20px;clip-path:polygon(50% 0,100% 100%,0 100%);content:""}
+    .balance-alert::before{top:-20px;background:#eec7fc}
+    .balance-alert::after{top:-14px;width:22px;height:16px;background:#fff}
+    .loan-display{position:absolute;z-index:4;left:5%;top:89.1%;width:26.5%;height:6.1%}
+    .loan-display-value{position:absolute;inset:0;width:100%;height:100%;padding:5px 8px;border-radius:18px;background:var(--purple-light);color:#050505;text-align:center;font:400 clamp(17px,2.6vw,34px)/1 "Tilt Warp",system-ui,sans-serif;white-space:nowrap}
+    .loan-display-value.is-action{font-size:clamp(12px,1.75vw,23px)}
+    .loan-layer{position:absolute;inset:0;z-index:12;display:grid;place-items:center;background:rgba(18,0,30,.48)}
+    .loan-layer[hidden]{display:none}
+    .loan-request-layer,.loan-approved-screen{isolation:isolate;background:#3e0067}
+    .loan-request-layer::before{position:absolute;inset:0;z-index:0;content:"";background:url("pattern.png") repeat;background-size:160px 160px;opacity:.25;pointer-events:none}
+    .loan-notice-art,.loan-request-art{position:relative;width:min(100vw,calc(100vh * 1.40625));aspect-ratio:1440/1024}
+    .loan-notice-art img{display:block;width:100%;height:100%;object-fit:contain}
+    .loan-approved-art{position:relative;z-index:1;width:100%;height:100%;display:grid;place-items:center;overflow:hidden}
+    .loan-approved-background{position:absolute;inset:0;z-index:0;background:#3e0067}
+    .loan-approved-background::before{position:absolute;inset:0;content:"";background:url("pattern.png") repeat;background-size:160px 160px;opacity:.25}
+    .loan-approved-stars{position:absolute;inset:0;z-index:1;pointer-events:none}
+    .loan-approved-screen .loan-approved-stars .star{display:block;position:absolute;z-index:1;color:var(--yellow)}
+    .loan-approved-stars .star.a{top:2%;right:16%;font-size:clamp(250px,31vw,420px);transform:rotate(12deg)}
+    .loan-approved-stars .star.b{top:38%;left:3%;font-size:clamp(230px,27vw,380px);transform:rotate(-16deg)}
+    .loan-approved-stars .star.c{bottom:1%;left:15%;font-size:clamp(250px,31vw,420px);transform:rotate(-12deg)}
+    .loan-approved-stars .star.d{right:3%;bottom:14%;font-size:clamp(250px,31vw,420px);transform:rotate(14deg)}
+    .loan-approved-card{z-index:2}
+    .loan-approved-title{font:400 clamp(64px,8.4vw,120px)/1.35 "Tilt Warp",system-ui,sans-serif;margin:0 0 clamp(18px,3vw,36px)}
+    .loan-approved-check{width:clamp(110px,14vw,200px);height:clamp(110px,14vw,200px);margin:0 0 clamp(20px,3vw,36px)}
+    .loan-approved-continue:focus-visible{outline:4px solid #3e0067;outline-offset:3px}
+    .loan-notice-continue{position:absolute;left:36.8%;top:56.5%;width:26.4%;height:8.4%;border:0;border-radius:24px;background:transparent;color:transparent;font-size:0}
+    .loan-notice-continue:focus-visible,.loan-submit:focus-visible{outline:4px solid #3e0067;outline-offset:3px}
+    .loan-request-art{z-index:1;width:min(1128px,90vw);height:100svh;aspect-ratio:auto;display:flex;flex-direction:column;overflow-y:auto;padding:11vh 0 8vh}
+    .loan-request-title{margin:0 0 34px;color:#fff;text-align:center;font:700 clamp(25px,2.6vw,42px)/1.15 "Tilt Warp",system-ui,sans-serif}
+    .loan-slider-card{flex:0 0 auto;min-height:205px;padding:36px clamp(28px,4vw,76px) 20px;border-radius:34px;background:#eec7fc;display:flex;flex-direction:column}
+    .loan-slider-card+.loan-slider-card{margin-top:8vh}
+    .loan-slider-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;font:700 clamp(19px,2vw,32px)/1.2 "Aoboshi One",Georgia,serif}
+    .loan-amount-output,.loan-duration-output{color:#050505;font:700 clamp(19px,2vw,32px)/1.2 "Aoboshi One",Georgia,serif;white-space:nowrap}
+    .loan-slider-row{display:flex;align-items:center;margin-top:auto}
+    .loan-slider-track{flex:1;min-width:0;display:flex;align-items:center;margin:0 25px}
+    .loan-slider-limits{display:flex;justify-content:space-between;margin-top:-3px;font:700 clamp(17px,1.7vw,28px)/1 "Aoboshi One",Georgia,serif}
+    .loan-slider{appearance:none;-webkit-appearance:none;width:100%;height:50px;margin:0;padding:0;background:transparent;cursor:pointer}
+    .loan-slider::-webkit-slider-runnable-track{height:16px;border-radius:99px;background:#3e0067}
+    .loan-slider::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:50px;height:50px;margin-top:-17px;border:0;border-radius:50%;background:#3e0067}
+    .loan-slider::-moz-range-track{height:16px;border:0;border-radius:99px;background:#3e0067}
+    .loan-slider::-moz-range-thumb{width:50px;height:50px;border:0;border-radius:50%;background:#3e0067}
+    .loan-slider:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:99px}
+    .loan-actions{position:absolute;inset:0;pointer-events:none}
+    .scan-ktp-button,.loan-submit,.scan-capture,.scan-close{min-height:42px;padding:8px 18px;border:0;border-radius:14px;background:var(--yellow);color:#16051c;font:700 clamp(13px,1.35vw,18px)/1.1 "Tilt Warp",system-ui,sans-serif;pointer-events:auto}
+    .loan-request-art .loan-actions{position:static;inset:auto;display:flex;justify-content:center;margin-top:auto;padding-top:5vh;pointer-events:auto}
+    .loan-submit{width:min(306px,55vw);min-height:80px;padding:12px 24px;border-radius:29px;background:var(--yellow);color:#050505;font:700 clamp(25px,3vw,42px)/1 "Tilt Warp",system-ui,sans-serif}
+    .loan-scanner{position:absolute;inset:0;z-index:14;display:grid;place-items:center;padding:20px;background:rgba(0,0,0,.82)}
+    .loan-scanner[hidden]{display:none}
+    .scanner-stage{position:relative;width:min(94vw,1100px);aspect-ratio:1440/1024;background:#262626 url("Scan KTP Pinjol.png") center/100% 100% no-repeat;overflow:hidden;border-radius:26px}
+    .loan-display-value:disabled{opacity:1;cursor:default;transform:none;filter:none}
+    .scanner-video,.scanner-preview{position:absolute;left:28.8%;top:25.6%;width:42.4%;height:37.4%;object-fit:cover;border:0;border-radius:4px;background:#b9d4dc}
+    .scanner-preview[hidden]{display:none}
+    .scanner-controls{position:absolute;left:0;right:0;bottom:5%;display:flex;justify-content:center;gap:12px}
+    .scanner-controls button{min-width:130px}
+    .scanner-upload{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+    .scanner-message{position:absolute;left:10%;right:10%;top:4%;margin:0;color:#fff;text-align:center;font-weight:700;text-shadow:0 2px 4px #000}
+    .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     .result-pop{position:absolute;inset:0;z-index:8;display:grid;place-items:center;pointer-events:none}
     .result-pop[hidden]{display:none}
     .result-pop.loss{background:rgba(0,0,0,.4)}
@@ -92,13 +148,14 @@
     .round-start-pop,.round-end-pop{position:absolute;inset:0;z-index:9;display:grid;place-items:center}
     .round-start-pop[hidden]{display:none}
     .round-end-pop[hidden]{display:none}
-    .round-start-button{position:relative;display:grid;place-items:center;width:min(90vw,1100px);aspect-ratio:3/1;padding:0;border:0;background:transparent;cursor:pointer;animation:result-pop-in .3s cubic-bezier(.2,.8,.2,1) both}
+    .round-start-button{position:relative;display:grid;place-items:center;width:min(100vw,calc(100vh * 1.40625));aspect-ratio:1440/1024;padding:0;border:0;background:transparent;cursor:pointer;animation:result-pop-in .3s cubic-bezier(.2,.8,.2,1) both}
     .round-start-stars{position:absolute;inset:0;pointer-events:none}
-    .round-start-star{position:absolute;display:block;width:clamp(105px,17vw,230px);aspect-ratio:1;background:linear-gradient(145deg,#ffe63f 0%,#ffc21a 72%,#f29a00 100%);clip-path:polygon(50% 0%,61% 34%,98% 25%,70% 53%,89% 88%,54% 70%,27% 100%,31% 62%,0% 48%,38% 39%);filter:drop-shadow(0 7px 0 #9b4c00)}
-    .round-start-star.left{left:7%;top:12%;transform:rotate(-12deg)}
-    .round-start-star.right{right:7%;top:11%;transform:rotate(13deg) scale(.88)}
-    .round-start-star.bottom{left:43%;bottom:0;transform:rotate(8deg) scale(.48)}
-    .round-start-title{position:relative;z-index:1;color:#3e0067;font:900 clamp(38px,7.2vw,118px)/1 "Tilt Warp",system-ui,sans-serif;letter-spacing:.015em;white-space:nowrap;-webkit-text-stroke:clamp(2px,.42vw,7px) #fff;paint-order:stroke fill;text-shadow:0 5px 0 #19002b,0 9px 14px rgba(0,0,0,.28)}
+    .round-start-star{position:absolute;display:block;aspect-ratio:1;background:#ffce1f;clip-path:polygon(31% 0%,57% 28%,93% 12%,74% 46%,100% 74%,62% 67%,43% 100%,38% 62%,0% 54%,36% 38%)}
+    .round-start-star.left{left:6.2%;top:28.5%;width:27.2%;transform:rotate(-3deg)}
+    .round-start-star.right{right:6%;top:34%;width:27.2%;transform:rotate(2deg)}
+    .round-start-star.middle{left:55.7%;top:32.5%;width:12%;transform:rotate(4deg)}
+    .round-start-star.bottom{left:34.9%;top:52.4%;width:14%;transform:rotate(-5deg)}
+    .round-start-title{position:relative;z-index:1;color:#3e0067;font:400 clamp(52px,14.87vw,214.17px)/1 "Tilt Warp",system-ui,sans-serif;letter-spacing:0;white-space:nowrap;-webkit-text-stroke:clamp(4px,.76vw,11px) #fffdfd;paint-order:stroke fill}
     .round-end-button{display:block;width:min(100vw,calc(100vh * 1.40625));aspect-ratio:1440/1024;padding:0;border:0;background:transparent;cursor:pointer;animation:result-pop-in .3s cubic-bezier(.2,.8,.2,1) both}
     .round-end-button img{display:block;width:100%;height:100%;object-fit:contain}
     @media(min-width:721px) and (orientation:landscape){
@@ -112,7 +169,8 @@
       .game-status{left:42%;right:22%;bottom:7%;font-size:clamp(16px,1.8vw,24px)}
       .game-round{display:none}
     }
-    @media(max-width:720px),(orientation:portrait){.game-layout{background-image:none}.result-art{width:100vw;height:100svh;aspect-ratio:auto}.result-art img{object-fit:contain}.round-end-button{width:100vw;height:100svh;aspect-ratio:auto}.round-start-button{width:96vw;aspect-ratio:2.7/1}.round-start-star{width:clamp(75px,22vw,135px)}.round-start-title{font-size:clamp(30px,8vw,58px);-webkit-text-stroke:2px #fff}}
+    @media(max-width:720px),(orientation:portrait){.game-layout{background-image:none}.loan-display{left:6%;top:78%;width:35%;height:auto}.loan-display::before{content:"Pinjaman";display:block;margin-bottom:4px;color:#fff;font:400 14px/1 "Aoboshi One",Georgia,serif}.loan-display-value{position:relative;height:34px;font-size:18px}.loan-display-value.is-action{font-size:12px}.loan-notice-art{width:100vw;height:100svh;aspect-ratio:auto}.loan-notice-art img{object-fit:contain}.loan-notice-continue{left:30%;top:56%;width:40%;height:9%}.loan-approved-card{width:90vw;min-height:80svh;padding:30px 20px;border-radius:42px}.loan-approved-title{font-size:clamp(44px,12vw,68px);margin-bottom:12px}.loan-approved-check{width:112px;height:112px;margin-bottom:15px}.loan-approved-copy{font-size:clamp(20px,5.5vw,28px);margin-bottom:18px}.loan-approved-continue{min-width:220px;min-height:64px;font-size:28px}.approval-star{width:clamp(95px,24vw,150px)}.approval-star.one{top:3%;right:3%}.approval-star.two{top:42%;left:1%}.approval-star.three{right:1%;bottom:16%}.approval-star.four{left:5%;bottom:2%}.loan-request-art{width:min(92vw,560px);padding:7vh 0 5vh}.loan-request-title{font-size:clamp(22px,6vw,32px);margin-bottom:22px}.loan-slider-card{min-height:165px;padding:25px 22px 15px;border-radius:26px}.loan-slider-card+.loan-slider-card{margin-top:4vh}.loan-slider-heading{font-size:clamp(16px,4.2vw,22px);gap:8px}.loan-amount-output,.loan-duration-output{font-size:clamp(16px,4.2vw,22px)}.loan-slider-track{margin:0 21px}.loan-slider-limits{font-size:16px}.loan-slider{height:42px}.loan-slider::-webkit-slider-runnable-track{height:12px}.loan-slider::-webkit-slider-thumb{width:42px;height:42px;margin-top:-15px}.loan-slider::-moz-range-track{height:12px}.loan-slider::-moz-range-thumb{width:42px;height:42px}.loan-request-art .loan-actions{padding-top:4vh}.loan-submit{min-height:64px;font-size:clamp(22px,6vw,30px)}.scanner-stage{width:100%;border-radius:14px}.scanner-video,.scanner-preview{left:28.8%;top:25.6%;width:42.4%;height:37.4%}.scanner-controls{bottom:4%;gap:6px}.scanner-controls button{min-width:0;padding:8px 10px;font-size:12px}}
+    @media(max-width:720px),(orientation:portrait){.loan-approved-card{width:90vw;min-height:calc(100svh - 40px);padding:38px 23px;border-radius:42px}.loan-approved-title{font-size:clamp(57px,16vw,82px);line-height:1.25;margin-bottom:16px}.loan-approved-check{width:112px;height:112px;margin-bottom:19px}.loan-approved-copy{font-size:clamp(21px,6vw,28px);margin-bottom:23px}.loan-approved-continue{min-width:min(100%,260px);min-height:72px;font-size:34px;border-radius:25px}.loan-approved-stars .star.a{right:4%;top:2%;font-size:clamp(120px,34vw,260px)}.loan-approved-stars .star.b{left:2%;top:40%;font-size:clamp(120px,34vw,260px)}.loan-approved-stars .star.c{left:7%;bottom:2%;font-size:clamp(130px,38vw,320px)}.loan-approved-stars .star.d{right:2%;bottom:14%;font-size:clamp(120px,34vw,260px)}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
   </style>
 </head>
@@ -173,11 +231,15 @@
       <button class="spin-demo" id="spinButton" type="button">SPIN</button>
       <div class="game-status" id="gameStatus" role="status">Coba keberuntunganmu!</div>
       <div class="game-round" id="gameRound">RONDE 1</div>
+      <div class="loan-display" aria-live="polite">
+        <button class="loan-display-value is-action" id="loanBalanceDisplay" type="button">Ajukan Pinjaman</button>
+      </div>
+      <div class="balance-alert" id="balanceAlert" role="alert" aria-live="assertive" hidden>Saldo tidak cukup. Mohon top up atau ajukan pinjaman.</div>
     </div>
     <div class="result-pop" id="resultPop" hidden aria-hidden="true"><div class="result-art"><img id="resultImage" src="menang-pop.svg" alt=""></div></div>
     <div class="round-start-pop" id="roundStartPop" hidden>
       <button class="round-start-button" id="roundStartButton" type="button" aria-label="Mulai ronde">
-        <span class="round-start-stars" aria-hidden="true"><i class="round-start-star left"></i><i class="round-start-star right"></i><i class="round-start-star bottom"></i></span>
+        <span class="round-start-stars" aria-hidden="true"><i class="round-start-star left"></i><i class="round-start-star right"></i><i class="round-start-star middle"></i><i class="round-start-star bottom"></i></span>
         <span class="round-start-title" id="roundIntroTitle">RONDE 1</span>
       </button>
     </div>
@@ -186,7 +248,57 @@
         <img src="ending-round.svg" alt="Ronde selesai. Klik untuk lanjut.">
       </button>
     </div>
-    <div class="balance-alert" id="balanceAlert" role="alert" aria-live="assertive" hidden>Saldo tidak cukup. Mohon top up atau ajukan pinjaman.</div>
+    <div class="loan-layer" id="loanNotice" role="dialog" aria-modal="true" aria-label="Ajukan pinjaman" hidden>
+      <div class="loan-notice-art">
+        <img src="Notifikasi Pinjol (ga bisa di close).svg" alt="Pengajuan pinjaman">
+        <button class="loan-notice-continue" id="loanNoticeContinue" type="button" aria-label="Lanjutkan pengajuan pinjaman">Lanjutkan</button>
+      </div>
+    </div>
+    <div class="loan-layer loan-request-layer" id="loanRequest" role="dialog" aria-modal="true" aria-label="Form pengajuan pinjaman" hidden>
+      <div class="loan-request-art">
+        <h2 class="loan-request-title">Tentukan nominal yang ingin anda ajukan!</h2>
+        <section class="loan-slider-card">
+          <div class="loan-slider-heading"><span>Jumlah pinjaman</span><output class="loan-amount-output" id="loanAmountOutput" for="loanAmountSlider">Rp8.500.000</output></div>
+          <div class="loan-slider-row"><label class="loan-slider-track"><span class="visually-hidden">Jumlah pinjaman</span><input class="loan-slider" id="loanAmountSlider" type="range" min="2000000" max="10000000" step="500000" value="8500000"></label></div>
+          <div class="loan-slider-limits" aria-hidden="true"><span>2</span><span>10</span></div>
+        </section>
+        <section class="loan-slider-card">
+          <div class="loan-slider-heading"><span>Jangka waktu</span><output class="loan-duration-output" id="loanDurationOutput" for="loanDurationSlider">5 Bulan</output></div>
+          <div class="loan-slider-row"><label class="loan-slider-track"><span class="visually-hidden">Jangka waktu</span><input class="loan-slider" id="loanDurationSlider" type="range" min="3" max="6" step="1" value="5"></label></div>
+          <div class="loan-slider-limits" aria-hidden="true"><span>3</span><span>6</span></div>
+        </section>
+        <div class="loan-actions"><button class="loan-submit" id="loanSubmit" type="button" aria-label="Konfirmasi pengajuan pinjaman">Konfirmasi</button></div>
+      </div>
+    </div>
+    <div class="loan-layer loan-approved-screen" id="loanApproved" role="dialog" aria-modal="true" aria-label="Pinjaman disetujui" hidden>
+      <div class="loan-approved-background" aria-hidden="true"></div>
+      <div class="loan-approved-art">
+        <div class="loan-approved-stars" aria-hidden="true"><div class="star a">★</div><div class="star b">★</div><div class="star c">★</div><div class="star d">★</div></div>
+        <section class="success-card loan-approved-card">
+          <h1 class="loan-approved-title">PINJAMAN<br>DISETUJUI!</h1>
+          <svg class="success-icon loan-approved-check" viewBox="0 0 200 200" role="img" aria-label="Berhasil">
+            <circle cx="82" cy="100" r="70" fill="none" stroke="#050505" stroke-width="10" stroke-dasharray="355 90" transform="rotate(43 82 100)"/>
+            <path d="M48 99l30 30 73-76" fill="none" stroke="#050505" stroke-width="12" stroke-linecap="square" stroke-linejoin="miter"/>
+            <path d="M150 152v34m-17-17h34" fill="none" stroke="#050505" stroke-width="10" stroke-linecap="square"/>
+          </svg>
+          <p class="success-copy loan-approved-copy">Ayo lanjutkan ke permainan!</p>
+          <button class="continue loan-approved-continue" id="loanApprovalContinue" type="button">Lanjutkan</button>
+        </section>
+      </div>
+    </div>
+    <div class="loan-scanner" id="loanScanner" role="dialog" aria-modal="true" aria-label="Scan KTP" hidden>
+      <div class="scanner-stage">
+        <p class="scanner-message" id="scannerMessage">Posisikan KTP di dalam bingkai</p>
+        <video class="scanner-video" id="scannerVideo" autoplay muted playsinline></video>
+        <img class="scanner-preview" id="scannerPreview" alt="Pratinjau hasil scan KTP" hidden>
+        <input class="scanner-upload" id="scannerUpload" type="file" accept="image/*" capture="environment">
+        <div class="scanner-controls">
+          <button class="scan-capture" id="scanCapture" type="button">Ambil Foto</button>
+          <button class="scan-capture" id="scanChooseFile" type="button">Pilih Foto</button>
+          <button class="scan-close" id="scanClose" type="button">Kembali</button>
+        </div>
+      </div>
+    </div>
   </section>
   <script>
     const welcome=document.querySelector('#welcome');
@@ -195,14 +307,25 @@
     const game=document.querySelector('#game');
     const confirmButton=document.querySelector('#confirm');
     const gameBalance=document.querySelector('#gameBalance');
+    const loanBalanceDisplay=document.querySelector('#loanBalanceDisplay');
     let selectedAmount='';
     let balance=0;
+    let loanBalance=0;
+    let requestedLoan=8500000;
+    let requestedDuration=5;
+    let loanApprovalPending=false;
     let activeScreen='welcome';
     let hasStartedGame=false;
     let roundStage='playing';
     let spinsLeft=5,round=1,spinning=false;
     const formatBalance=value=>new Intl.NumberFormat('id-ID').format(value);
     const updateBalance=()=>{gameBalance.textContent=`Rp${formatBalance(balance)}`};
+    const updateLoanDisplay=()=>{
+      const hasLoan=loanBalance>0;
+      loanBalanceDisplay.textContent=hasLoan?`Rp${formatBalance(loanBalance)}`:'Ajukan Pinjaman';
+      loanBalanceDisplay.classList.toggle('is-action',!hasLoan);
+      loanBalanceDisplay.disabled=hasLoan;
+    };
     const spinCost=10000;
     const spinCount=document.querySelector('#spinCount');
     const spinButton=document.querySelector('#spinButton');
@@ -213,7 +336,7 @@
     const stateKey='newmed67-demo-state';
     const saveState=()=>{
       try{
-        sessionStorage.setItem(stateKey,JSON.stringify({screen:activeScreen,balance,selectedAmount,spinsLeft,round,hasStartedGame,roundStage,symbols:cells.map(cell=>cell.textContent)}));
+        sessionStorage.setItem(stateKey,JSON.stringify({screen:activeScreen,balance,loanBalance,requestedLoan,requestedDuration,loanApprovalPending,selectedAmount,spinsLeft,round,hasStartedGame,roundStage,pendingBalanceAlert,symbols:cells.map(cell=>cell.textContent)}));
       }catch{}
     };
     document.querySelectorAll('.start-action').forEach(button=>button.addEventListener('click',()=>{
@@ -278,13 +401,152 @@
     const roundEndPop=document.querySelector('#roundEndPop');
     const roundEndButton=document.querySelector('#roundEndButton');
     const balanceAlert=document.querySelector('#balanceAlert');
+    const loanNotice=document.querySelector('#loanNotice');
+    const loanRequest=document.querySelector('#loanRequest');
+    const loanApproved=document.querySelector('#loanApproved');
+    const loanScanner=document.querySelector('#loanScanner');
+    const loanAmountSlider=document.querySelector('#loanAmountSlider');
+    const loanAmountOutput=document.querySelector('#loanAmountOutput');
+    const loanDurationSlider=document.querySelector('#loanDurationSlider');
+    const loanDurationOutput=document.querySelector('#loanDurationOutput');
+    const loanSubmit=document.querySelector('#loanSubmit');
+    const scannerVideo=document.querySelector('#scannerVideo');
+    const scannerPreview=document.querySelector('#scannerPreview');
+    const scannerUpload=document.querySelector('#scannerUpload');
+    const scannerMessage=document.querySelector('#scannerMessage');
+    let scannerStream=null;
+    let hasScannedKtp=false;
     let roundIntroTimer;
     let balanceAlertTimer;
+    let pendingBalanceAlert=false;
+    const gameTopupButton=document.querySelector('#gameTopup');
+    const gameLayout=document.querySelector('.game-layout');
+    const positionBalanceAlert=()=>{
+      if(balanceAlert.hidden)return;
+      const buttonRect=gameTopupButton.getBoundingClientRect();
+      const layoutRect=gameLayout.getBoundingClientRect();
+      const maxLeft=Math.max(12,gameLayout.clientWidth-balanceAlert.offsetWidth-12);
+      const buttonCenter=buttonRect.left-layoutRect.left+buttonRect.width/2;
+      const left=Math.min(Math.max(buttonCenter-balanceAlert.offsetWidth/2,12),maxLeft);
+      const top=Math.min(buttonRect.bottom-layoutRect.top+14,gameLayout.clientHeight-balanceAlert.offsetHeight-12);
+      balanceAlert.style.left=`${left}px`;
+      balanceAlert.style.top=`${Math.max(12,top)}px`;
+    };
     const showBalanceAlert=()=>{
       clearTimeout(balanceAlertTimer);
       balanceAlert.hidden=false;
+      positionBalanceAlert();
       balanceAlertTimer=setTimeout(()=>{balanceAlert.hidden=true},5000);
     };
+    const updateLoanAmount=()=>{
+      requestedLoan=Number(loanAmountSlider.value);
+      loanAmountOutput.textContent=`Rp${formatBalance(requestedLoan)}`;
+      requestedDuration=Number(loanDurationSlider.value);
+      loanDurationOutput.textContent=`${requestedDuration} Bulan`;
+    };
+    const finishLoanRequest=()=>{
+      loanBalance+=requestedLoan;
+      balance+=requestedLoan;
+      updateBalance();
+      updateLoanDisplay();
+      loanScanner.hidden=true;
+      loanApproved.hidden=false;
+      loanApprovalPending=true;
+      stopScanner();
+      hasScannedKtp=false;
+      scannerUpload.value='';
+      scannerPreview.removeAttribute('src');
+      scannerPreview.hidden=true;
+      gameStatus.textContent=`Pinjaman Rp${formatBalance(requestedLoan)} disetujui untuk ${requestedDuration} bulan.`;
+      saveState();
+    };
+    document.querySelector('#loanApprovalContinue').addEventListener('click',()=>{
+      loanApproved.hidden=true;
+      loanApprovalPending=false;
+      gameStatus.textContent='Pinjaman berhasil ditambahkan ke saldo.';
+      saveState();
+    });
+    const stopScanner=()=>{
+      scannerStream?.getTracks().forEach(track=>track.stop());
+      scannerStream=null;
+      scannerVideo.srcObject=null;
+    };
+    loanBalanceDisplay.addEventListener('click',()=>{
+      if(loanBalance>0)return;
+      loanNotice.hidden=false;
+    });
+    document.querySelector('#loanNoticeContinue').addEventListener('click',()=>{
+      loanNotice.hidden=true;
+      loanRequest.hidden=false;
+      updateLoanAmount();
+    });
+    loanAmountSlider.addEventListener('input',updateLoanAmount);
+    loanDurationSlider.addEventListener('input',updateLoanAmount);
+    loanSubmit.addEventListener('click',async()=>{
+      loanRequest.hidden=true;
+      loanScanner.hidden=false;
+      hasScannedKtp=false;
+      document.querySelector('#scanClose').textContent='Kembali';
+      document.querySelector('#scanCapture').hidden=false;
+      document.querySelector('#scanChooseFile').hidden=false;
+      scannerMessage.textContent='Posisikan KTP di dalam bingkai';
+      scannerPreview.hidden=true;
+      scannerVideo.hidden=false;
+      try{
+        if(!navigator.mediaDevices?.getUserMedia)throw new Error('Camera unavailable');
+        scannerStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+        scannerVideo.srcObject=scannerStream;
+        await scannerVideo.play();
+      }catch{
+        scannerMessage.textContent='Kamera tidak tersedia. Pilih foto KTP untuk melanjutkan.';
+        scannerUpload.click();
+      }
+    });
+    document.querySelector('#scanCapture').addEventListener('click',()=>{
+      if(!scannerVideo.videoWidth){
+        scannerMessage.textContent='Kamera belum siap. Coba lagi atau pilih foto.';
+        return;
+      }
+      const canvas=document.createElement('canvas');
+      canvas.width=scannerVideo.videoWidth;
+      canvas.height=scannerVideo.videoHeight;
+      canvas.getContext('2d').drawImage(scannerVideo,0,0);
+      scannerPreview.src=canvas.toDataURL('image/jpeg',.86);
+      scannerPreview.hidden=false;
+      scannerVideo.hidden=true;
+      hasScannedKtp=true;
+      document.querySelector('#scanClose').textContent='Konfirmasi';
+      document.querySelector('#scanCapture').hidden=true;
+      document.querySelector('#scanChooseFile').hidden=true;
+      scannerMessage.textContent='Foto KTP berhasil diambil. Gambar hanya tersimpan sementara di browser.';
+      stopScanner();
+    });
+    document.querySelector('#scanChooseFile').addEventListener('click',()=>scannerUpload.click());
+    scannerUpload.addEventListener('change',()=>{
+      const file=scannerUpload.files?.[0];
+      if(!file)return;
+      scannerPreview.src=URL.createObjectURL(file);
+      scannerPreview.hidden=false;
+      scannerVideo.hidden=true;
+      hasScannedKtp=true;
+      document.querySelector('#scanClose').textContent='Konfirmasi';
+      document.querySelector('#scanCapture').hidden=true;
+      document.querySelector('#scanChooseFile').hidden=true;
+      scannerMessage.textContent='Foto KTP siap. Gambar hanya ditampilkan sementara di browser.';
+      stopScanner();
+    });
+    document.querySelector('#scanClose').addEventListener('click',()=>{
+      stopScanner();
+      loanScanner.hidden=true;
+      if(hasScannedKtp){
+        finishLoanRequest();
+      }else{
+        loanRequest.hidden=false;
+      }
+    });
+    window.addEventListener('resize',positionBalanceAlert);
+    window.addEventListener('scroll',positionBalanceAlert,{passive:true});
+    window.addEventListener('pagehide',stopScanner);
     const closeRoundIntro=()=>{
       clearTimeout(roundIntroTimer);
       if(roundStartPop.hidden)return;
@@ -293,7 +555,13 @@
       spinning=false;
       spinButton.disabled=false;
       gameStatus.textContent='Ronde baru dimulai.';
-      saveState();
+      if(pendingBalanceAlert){
+        pendingBalanceAlert=false;
+        saveState();
+        showBalanceAlert();
+      }else{
+        saveState();
+      }
     };
     const showRoundIntro=()=>{
       roundIntroTitle.textContent=`RONDE ${round}`;
@@ -316,6 +584,7 @@
     };
     roundStartPop.addEventListener('click',closeRoundIntro);
     roundEndButton.addEventListener('click',()=>{
+      pendingBalanceAlert=round>=2&&balance<spinCost;
       roundEndPop.hidden=true;
       round++;
       spinsLeft=5;
@@ -335,7 +604,7 @@
     };
     spinButton.addEventListener('click',()=>{
       if(spinning)return;
-      if(balance<spinCost){updateSpinCount();gameStatus.textContent='Saldo tidak cukup. Mohon top up atau ajukan pinjaman.';showBalanceAlert();return}
+      if(balance<spinCost){updateSpinCount();gameStatus.textContent='Saldo tidak cukup. Mohon top up atau ajukan pinjaman.';if(round>=2)showBalanceAlert();return}
       balance-=spinCost;spinsLeft=Math.max(0,spinsLeft-1);updateBalance();updateSpinCount();
       spinning=true;spinButton.disabled=true;gameStatus.textContent='Buah sedang berputar…';reels.classList.add('spinning');
       saveState();
@@ -358,12 +627,12 @@
           saveState();
           setTimeout(()=>{
             resultPop.hidden=true;
-            if(balance<spinCost)showBalanceAlert();
             if(spinsLeft===0){
               gameStatus.textContent=`Ronde ${round} selesai.`;
               saveState();
               showRoundEnd();
             }else{
+              if(round>=2&&balance<spinCost)showBalanceAlert();
               spinning=false;spinButton.disabled=false;
             }
           },1450);
@@ -376,18 +645,28 @@
       if(saved&&['welcome','topup','success','game'].includes(saved.screen)){
         activeScreen=saved.screen;
         balance=Number(saved.balance)||0;
+        loanBalance=Math.max(0,Number(saved.loanBalance)||0);
+        requestedLoan=Number(saved.requestedLoan)||8500000;
+        requestedDuration=Number(saved.requestedDuration)||5;
+        loanApprovalPending=Boolean(saved.loanApprovalPending);
         selectedAmount=saved.selectedAmount||'';
         hasStartedGame=Boolean(saved.hasStartedGame||saved.screen==='game');
         roundStage=saved.roundStage||'playing';
+        pendingBalanceAlert=Boolean(saved.pendingBalanceAlert);
         round=Number.isInteger(saved.round)?saved.round:1;
         welcome.hidden=activeScreen!=='welcome';
         topup.hidden=activeScreen!=='topup';
         success.hidden=activeScreen!=='success';
         game.hidden=activeScreen!=='game';
+        loanApproved.hidden=!(activeScreen==='game'&&loanApprovalPending);
         document.body.classList.toggle('topup',activeScreen==='topup');
         document.body.classList.toggle('success',activeScreen==='success');
         document.body.classList.toggle('game',activeScreen==='game');
         updateBalance();
+        updateLoanDisplay();
+        loanAmountSlider.value=String(requestedLoan);
+        loanDurationSlider.value=String(requestedDuration);
+        updateLoanAmount();
         spinsLeft=Number.isInteger(saved.spinsLeft)?saved.spinsLeft:5;
         if(spinsLeft<=0){spinsLeft=0;roundStage='ending'}
         updateSpinCount();
